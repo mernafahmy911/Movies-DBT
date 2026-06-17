@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: stg_movies
+    columns:
+      - name: imdb_id
+        tests:
+          - unique
+          - not_null
+      - name: movie_rank
+        tests:
+          - unique
+          - not_null
+      - name: title
+        tests:
+          - not_null
+      - name: release_year
+        tests:
+          - not_null
+      - name: director
+        tests:
+          - not_null
+      - name: genre
+        tests:
+          - not_null
+      - name: language
+        tests:
+          - not_null
+      - name: production_company
+        tests:
+          - not_null
+      - name: imdb_score_10
+        tests:
+          - not_null
+      - name: imdb_score_100
+        tests:
+          - not_null
+      - name: imdb_votes
+        tests:
+          - not_null
+      - name: rt_critic_rating
+        tests:
+          - not_null
+      - name: rt_critic_reviews
+        tests:
+          - not_null
+      - name: audience_rating
+        tests:
+          - not_null
+      - name: audience_reviews
+        tests:
+          - not_null
+      - name: metacritic_score
+        tests:
+          - not_null
+      - name: letterboxd_score
+        tests:
+          - not_null
+      - name: letterboxd_votes
+        tests:
+          - not_null
+      - name: google_score
+        tests:
+          - not_null
+      - name: flickmetrix_score
+        tests:
+          - not_null
+      - name: custom_score
+        tests:
+          - not_null

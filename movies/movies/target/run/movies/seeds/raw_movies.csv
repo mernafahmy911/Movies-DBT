@@ -1,0 +1,13 @@
+
+    
+    
+    
+    create table "dev"."main"."raw_movies" ("Rank" integer,"Title" text,"Year" integer,"Genre" text,"Director" text,"Cast" text,"Language" text,"Plot" text,"Awards" text,"Production" text,"Flickmetrix_Score" integer,"IMDb_10" float8,"IMDb_100" integer,"IMDb_Votes" integer,"Metacritic" integer,"Critic_Rating_RT" integer,"Critic_Reviews" integer,"Audience_Rating" integer,"Audience_Reviews" integer,"Letterboxd" integer,"Letterboxd_Votes" integer,"Google_Score" integer,"Streaming_On" text,"RT_URL" text,"imdbID" text,"Custom_Score" float8)
+  ;
+    -- dbt seed --
+    
+          COPY "dev"."main"."raw_movies" FROM 'D:\NTI\DBT Task\dbtMovie\seeds\raw_movies.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  
