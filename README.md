@@ -1,121 +1,188 @@
+# 🎬 DBT Movies Project
 
-🚀 DBT Movies Project 
-1. Project Initialization
-Created a new dbt project named movies using dbt init.
+## Overview
 
-Configured dbt_project.yml with project name, version, and model paths.
+This project demonstrates a complete end-to-end data transformation workflow using **dbt (Data Build Tool)** and **DuckDB**. The goal is to transform raw movie datasets into a structured dimensional model suitable for analytics and reporting.
 
-Set up profiles.yml to establish a connection with DuckDB database.
+---
 
-2. Environment Configuration
+## 🚀 Project Workflow
+
+### 1. Project Initialization
+
+* Created a new dbt project using `dbt init`.
+* Configured `dbt_project.yml` with project settings, model paths, and materialization preferences.
+* Set up `profiles.yml` to connect dbt with DuckDB.
+
+### 2. Environment Configuration
+
 Configured two separate environments:
 
-Development (dev): For testing and development with 1 thread.
+#### Development Environment
 
-Production (prod): For production with 4 threads for better performance.
+* Database: `dev.duckdb`
+* Threads: 1
+* Used for testing and development.
 
-Defined database paths for both environments (dev.duckdb / prod.duckdb).
+#### Production Environment
 
-3. Data Loading (Seeds)
-Loaded raw movie data from CSV files using dbt seeds.
+* Database: `prod.duckdb`
+* Threads: 4
+* Optimized for production workloads.
 
-Configured seed settings:
+---
 
-File format: CSV.
+### 3. Data Loading (Seeds)
 
-Header: true.
+* Loaded raw movie datasets from CSV files using **dbt seeds**.
+* Configured seed settings:
 
-Delimiter: comma (,).
+  * File format: CSV
+  * Header: True
+  * Delimiter: Comma (,)
+* Stored all source files inside the `seeds/` directory.
 
-Placed seed files in the seeds/ directory.
+---
 
-4. Data Modeling Structure
-Designed a layered architecture following Kimball's dimensional modeling:
+### 4. Data Modeling
 
-a) Staging Layer (Views)
+The project follows a layered architecture based on **Kimball Dimensional Modeling**.
 
-Created staging models to clean and prepare raw data.
+#### Staging Layer
 
-Materialized as views for flexibility.
+* Created staging models to clean and standardize raw data.
+* Materialized as **Views** for flexibility and maintainability.
 
-b) Dimension Tables
+#### Dimension Tables
 
-Built dimension tables:
+Built the following dimensions:
 
-dim_directors: Director information.
+* `dim_directors`
+* `dim_movies`
+* `dim_production`
 
-dim_movies: Movie details.
+Materialized as **Tables** to improve query performance.
 
-dim_production: Production company data.
+#### Fact Table
 
-Materialized as tables for faster query performance.
+Created a central `fact_table` containing:
 
-c) Fact Table
+* Foreign keys to all dimension tables.
+* Business metrics for analytical reporting.
 
-Created fact_table to connect all dimensions.
+Materialized as a **Table** for optimized performance.
 
-Contains foreign keys to dimension tables.
+---
 
-Materialized as a table for analytical queries.
+### 5. Materialization Strategy
 
-5. Materialization Strategy
-Used different materialization types based on use cases:
+| Layer      | Materialization |
+| ---------- | --------------- |
+| Staging    | View            |
+| Dimensions | Table           |
+| Fact Table | Table           |
 
-Views: For staging models (lightweight, always up-to-date).
+This approach balances performance, storage efficiency, and maintainability.
 
-Tables: For dimension and fact tables (performance optimization).
+---
 
-6. Profile & Connection Setup
-Created profiles.yml file in ~/.dbt/ directory.
+### 6. Data Quality Testing
 
-Defined the movies profile with:
+Implemented dbt tests to ensure data integrity:
 
-Connection type: DuckDB.
+* `not_null` tests for primary keys.
+* `unique` tests for key columns.
+* Automated validation using `dbt test`.
 
-Database paths for dev and prod.
+---
 
-Thread configuration for parallel execution.
+### 7. Documentation
 
-7. Testing & Quality Assurance
-Implemented dbt tests to ensure data quality:
+* Added descriptions for all models and columns.
+* Generated interactive documentation using:
 
-not_null: Check for null values in primary keys.
+```bash
+dbt docs generate
+dbt docs serve
+```
 
-unique: Verify uniqueness of key columns.
+This provides a clear data lineage and model documentation.
 
-Used dbt test command to run all tests.
+---
 
-8. Documentation
-Documented all models with descriptions.
+### 8. Build & Execution
 
-Added column descriptions for better understanding.
+Common commands used in the project:
 
-Generated project documentation using dbt docs generate and dbt docs serve.
+```bash
+dbt build
+dbt run
+dbt test
+dbt debug
+```
 
-9. Build & Execution
-Executed the complete pipeline using:
+* `dbt build` → Runs seeds, models, and tests.
+* `dbt run` → Executes models only.
+* `dbt test` → Validates data quality.
+* `dbt debug` → Verifies project configuration and connections.
 
-dbt build: Runs seeds, models, and tests in one command.
+---
 
-dbt run: Builds models only.
+### 9. Troubleshooting
 
-dbt test: Runs data quality tests.
+Resolved several common issues including:
 
-Successfully built and validated all models.
+* Missing profile configuration.
+* Connection setup errors.
+* Environment path issues on Windows.
+* Profile recognition errors such as:
 
-10. Troubleshooting & Debugging
-Used dbt debug to verify connections and configurations.
+  ```
+  Could not find profile named 'movies'
+  ```
 
-Resolved the "Could not find profile named 'movies'" error.
+---
 
-Fixed environment and path issues for Windows.
+### 10. Version Control
 
-Ensured smooth execution of the entire pipeline.
+* Managed the project using Git.
+* Published the repository on GitHub.
+* Tracked all models, configurations, tests, and documentation through version control.
 
-11. Version Control
-Managed the project using Git for version control.
+---
 
-Created a repository on GitHub.
+## 🛠️ Technologies Used
 
-Committed all configurations, models, and documentation.
+* dbt
+* DuckDB
+* SQL
+* Git & GitHub
+* CSV Data Sources
 
+---
+
+## 📊 Architecture
+
+```text
+CSV Files
+    ↓
+dbt Seeds
+    ↓
+Staging Models (Views)
+    ↓
+Dimension Tables
+    ↓
+Fact Table
+    ↓
+Analytics & Reporting
+```
+
+## ✅ Key Features
+
+* End-to-End ELT Workflow
+* Dimensional Modeling (Star Schema)
+* Data Quality Testing
+* Automated Documentation
+* Multi-Environment Configuration
+* Version Control with GitHub
+* Optimized Materialization Strategy
